@@ -65,9 +65,6 @@ $t.answer(1, async () => {
 */
 const $source = $t.source(2);
 $t.answer(2, async () => {
-  // Your code goes here:
-  // 1. Get ids: $source.getIds()
-  // 2. Get text for every id: $source.getText(id)
-  // 3. Return array of texts
-  return;
+  let ids = await $source.getIds();
+  return await Promise.all(ids.map((e) => $source.getText(e)));
 });
