@@ -43,12 +43,11 @@ $t.answer(1, async () => {
     byCategories: {},
   };
   source.forEach((e) => {
-    e.type === "income" ? (obj.income += e.amount) : (obj.expenses += e.amount);
+    let amount = e.type === "income" ? e.amount : -e.amount;
+    amount > 0 ? (obj.income += amount) : (obj.expenses -= amount);
     obj.byCategories.hasOwnProperty(e.category)
-      ? (obj.byCategories[e.category] +=
-          e.type === "income" ? e.amount : -e.amount)
-      : (obj.byCategories[e.category] =
-          e.type === "income" ? e.amount : -e.amount);
+      ? (obj.byCategories[e.category] += amount)
+      : (obj.byCategories[e.category] = amount);
   });
 
   obj.balance = obj.income - obj.expenses;
